@@ -35,19 +35,97 @@ To load product review text, perform sentiment polarity analysis using the `Text
 
 ## Program
 
-#Sentiment Analysis on Product Reviews using TextBlob
+# Sentiment Analysis on Product Reviews using TextBlob  
 
-#Step 1: Create a list of sample product reviews
+from textblob import TextBlob  
+import matplotlib.pyplot as plt  
 
-#Step 2: Initialize counters
+# Step 1: Create a list of sample product reviews  
+reviews = [  
+    "The product is excellent and works perfectly. I love it.",  
+    "Great quality and fast delivery. Very happy with this purchase.",  
+    "This is an amazing product and I highly recommend it.",  
+    "Good value for money and easy to use.",  
+    "I am satisfied with the product. It is useful.",  
+    "The product is okay and does what it says.",  
+    "The item is average, nothing special.",  
+    "The product is disappointing and poor quality.",  
+    "Terrible experience. The product stopped working quickly.",  
+    "I hate this product. It is waste of money."  
+]  
 
-#Step 3: Analyze sentiment for each review
+# Step 2: Initialize sentiment counters  
+positive = 0  
+negative = 0  
+neutral = 0  
 
-#Step 4: Display summary
+print("PRODUCT REVIEW SENTIMENT ANALYSIS")  
+print("----------------------------------")  
 
-#Step 5: Plot sentiment distribution
+# Step 3: Analyze sentiment for each review  
+for review in reviews:  
 
+    analysis = TextBlob(review)  
+    polarity = analysis.sentiment.polarity  
+
+    if polarity > 0.1:  
+        sentiment = "Positive"  
+        positive += 1  
+
+    elif polarity < -0.1:  
+        sentiment = "Negative"  
+        negative += 1  
+
+    else:  
+        sentiment = "Neutral"  
+        neutral += 1  
+
+    print("\nReview:", review)  
+    print("Polarity:", round(polarity, 2))  
+    print("Sentiment:", sentiment)  
+
+# Step 4: Display summary  
+print("\n----- SENTIMENT SUMMARY -----")  
+print("Total Reviews:", len(reviews))  
+print("Positive Reviews:", positive)  
+print("Negative Reviews:", negative)  
+print("Neutral Reviews:", neutral)  
+
+# Step 5: Plot sentiment distribution  
+categories = ["Positive", "Negative", "Neutral"]  
+counts = [positive, negative, neutral]  
+
+plt.figure(figsize=(8, 5))  
+
+plt.bar(categories, counts,  
+        color=["green", "red", "orange"])  
+
+plt.title("Product Review Sentiment Distribution")  
+plt.xlabel("Sentiment Categories")  
+plt.ylabel("Number of Reviews")  
+
+plt.grid(axis="y", linestyle="--", alpha=0.5)  
+
+plt.show()  
 ## Output
+Original Customer Feedback:  
+The products are good, and customers love the fast delivery.  
+However, the packages were delayed.  
+
+Tokenized Words:  
+['The', 'products', 'are', 'good', ',', 'and',  
+ 'customers', 'love', 'the', 'fast', 'delivery',  
+ '.', 'However', ',', 'the', 'packages', 'were',  
+ 'delayed', '.']  
+
+After Stopword Removal and Punctuation Filtering:  
+['products', 'good', 'customers', 'love', 'fast',  
+ 'delivery', 'packages', 'delayed']  
+
+Final Lemmatized Words:  
+['product', 'good', 'customer', 'love', 'fast',  
+ 'delivery', 'package', 'delayed']  
+<img width="791" height="527" alt="WhatsApp Image 2026-11-24 at 21 55 59" src="https://github.com/user-attachments/assets/27a8a208-6cc5-449b-82fa-cb0bea636da7" />
 
 
 ## Result
